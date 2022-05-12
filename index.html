@@ -7,7 +7,29 @@
        
     </head>
 <body>
+    <button id="rock">ROCK</button>
+    <button id="paper">PAPER</button>
+    <button id="scissors">SCISSORS</button>
+
+    <div class="container">Scoreboard</div>
+
+
+
     <script>
+        let playerCount = 0;
+        let computerCount = 0;
+        
+        let result;
+        const container = document.querySelector('div[class="container"]');
+
+        const div = document.createElement('div');
+        div.textContent = `Player score: ${playerCount} Computer Score: ${computerCount}`;
+    
+
+        container.appendChild(div);
+
+        div.appendChild
+
         function computerPlay(){
             let x = Math.random();
 
@@ -40,7 +62,7 @@
                 return "You Lose! Rock beats Scissors";
             }
             if(playerSelection.toLowerCase()  == "paper" && computerSelection == "scissors"){
-                return "You lose! scissors beats paper";
+                return "You Lose! scissors beats paper";
             }
             if(playerSelection.toLowerCase()  == "paper" && computerSelection == "rock"){
                 return "You Win! paper beats rock";
@@ -48,19 +70,60 @@
         }
 
         
-
-        function game(){
+        
+        function game(e){
+          
             
-            for(let i =0; i< 5; i++){
-                let playerPlay = prompt("play?");
-                
-                console.log(playRound(playerPlay,computerPlay()));
+            //let result = ;
+            //console.log(result);
+
+       
+        }
+
+        function getRoundResult(result){
+            if(result.substring(0,5)==="You W"){
+                playerCount++;
+                div.textContent = `Player score: ${playerCount} Computer Score: ${computerCount}`;
+
+            }
+            else if(result.substring(0,5)==="You L"){
+                computerCount++;
+                div.textContent = `Player score: ${playerCount} Computer Score: ${computerCount}`;
 
             }
 
+            if(computerCount >= 5 ){
+                playerCount =0;
+                computerCount=0
+                alert("Computer Won 5 Matches");
+            }
+
+            else if(playerCount >=5){
+                playerCount =0;
+                computerCount=0
+                alert("You Won 5 Matches");
+            }
+
         }
+
+        //game();
+     
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach((button) => button.addEventListener('click', function(event){
+           
+             result = playRound(event.target.getAttribute('id'),computerPlay());
+             getRoundResult(result);
+             alert(result);
+           
+            
+            
+            
+            
+        }));
+
+       
+       
         
-        game();
     </script>
 
 </body>
